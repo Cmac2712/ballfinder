@@ -23,20 +23,17 @@
 		let body: Record<string, number> = {};
 		let locationSkipped = false;
 
-		// Only ask for location if the finder ticked the consent box.
-		if (consent) {
-			status = 'locating';
-			try {
-				const pos = await getPosition();
-				body = {
-					latitude: pos.coords.latitude,
-					longitude: pos.coords.longitude,
-					accuracy: pos.coords.accuracy
-				};
-			} catch {
-				// If we can't get a location, still alert the owner — just without it.
-				locationSkipped = true;
-			}
+		status = 'locating';
+		try {
+			const pos = await getPosition();
+			body = {
+				latitude: pos.coords.latitude,
+				longitude: pos.coords.longitude,
+				accuracy: pos.coords.accuracy
+			};
+		} catch {
+			// If we can't get a location, still alert the owner — just without it.
+			locationSkipped = true;
 		}
 
 		status = 'sending';
@@ -56,21 +53,12 @@
 			message = `Couldn't alert the owner: ${(err as Error).message}`;
 		}
 	}
+
+	alertOwner();
 </script>
 
-<h1>Found a golf ball?</h1>
-<p>Let the owner know their ball has turned up.</p>
+<h1>You found my ball!</h1>
 
-<label>
-	<input type="checkbox" bind:checked={consent} />
-	Share my location with the owner so they know where it was found
-</label>
-
-<p>
-	<button onclick={alertOwner} disabled={status === 'locating' || status === 'sending'}>
-		Alert the ball owner
-	</button>
-</p>
 
 {#if status === 'locating'}
 	<p>Getting your location…</p>
