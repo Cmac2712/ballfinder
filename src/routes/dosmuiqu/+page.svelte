@@ -46,8 +46,8 @@
 			if (!res.ok) throw new Error(await res.text());
 			status = 'sent';
 			message = locationSkipped
-				? 'thank you'
-				: 'thank you';
+				? ''
+				: '';
 		} catch (err) {
 			status = 'error';
 			message = `Couldn't alert the owner: ${(err as Error).message}`;
@@ -60,11 +60,11 @@
 <img src="https://i.pinimg.com/originals/2a/2f/a0/2a2fa0db3179d4b4ec39d1a8a1eeda7d.jpg" alt="" width="500">
 
 {#if status === 'locating'}
-	<p>Getting your location…</p>
+	<p></p>
 {:else if status === 'sending'}
-	<p>Sending…</p>
+	<p></p>
 {:else if status === 'sent'}
-	<p>{message}</p>
+	<p></p>
 {:else if status === 'error'}
-	<p>{message}</p>
+	<p></p>
 {/if}
