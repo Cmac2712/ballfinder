@@ -46,8 +46,8 @@
 			if (!res.ok) throw new Error(await res.text());
 			status = 'sent';
 			message = locationSkipped
-				? 'The owner has been alerted, but your location could not be included.'
-				: 'The owner has been alerted. Thanks for finding their ball!';
+				? 'thank you'
+				: 'thank you';
 		} catch (err) {
 			status = 'error';
 			message = `Couldn't alert the owner: ${(err as Error).message}`;
@@ -57,8 +57,7 @@
 	alertOwner();
 </script>
 
-<h1>You found my ball!</h1>
-
+<img src="https://i.pinimg.com/originals/2a/2f/a0/2a2fa0db3179d4b4ec39d1a8a1eeda7d.jpg" alt="" width="500">
 
 {#if status === 'locating'}
 	<p>Getting your location…</p>
